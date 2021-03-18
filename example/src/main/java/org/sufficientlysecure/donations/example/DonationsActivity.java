@@ -16,13 +16,9 @@
 
 package org.sufficientlysecure.donations.example;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import org.sufficientlysecure.donations.DonationsFragment;
@@ -61,30 +57,14 @@ public class DonationsActivity extends AppCompatActivity {
         DonationsFragment donationsFragment;
         if (BuildConfig.DONATIONS_GOOGLE) {
             donationsFragment = DonationsFragment.Companion.newInstance(BuildConfig.DEBUG, true, GOOGLE_PUBKEY, GOOGLE_CATALOG,
-                    getResources().getStringArray(R.array.donation_google_catalog_values), false, null, null,
+                    getResources().getStringArray(R.array.donation_google_catalog_values), 15, false, null, null,
                     null, false, null);
         } else {
-            donationsFragment = DonationsFragment.Companion.newInstance(BuildConfig.DEBUG, false, null, null, null, true, PAYPAL_USER,
+            donationsFragment = DonationsFragment.Companion.newInstance(BuildConfig.DEBUG, false, null, null, null, -1, true, PAYPAL_USER,
                     PAYPAL_CURRENCY_CODE, getString(R.string.donation_paypal_item), true, BITCOIN_ADDRESS);
         }
 
         ft.replace(R.id.donations_activity_container, donationsFragment, "donationsFragment");
         ft.commit();
     }
-
-    /**
-     * Needed for Google Play In-app Billing. It uses startIntentSenderForResult(). The result is not propagated to
-     * the Fragment like in startActivityForResult(). Thus we need to propagate manually to our Fragment.
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag("donationsFragment");
-        if (fragment != null) {
-            fragment.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
 }

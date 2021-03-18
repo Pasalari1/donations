@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="donations__button_close">סגור</string>
+	<string name="donations__google_android_market">גוגל פליי</string>
+	<string name="donations__google_android_market_donate_button">תרום!</string>
+	<string name="donations__paypal">paypal</string>
+	<string name="donations__thanks_dialog_title">תודה!</string>
+	<string name="donations__alert_dialog_title">התרחשה שגיאה</string>
+	<string name="donations__bitcoin">ביטקוין</string>
+	<string name="donations__bitcoin_send_bitcoin_button">שלח ביטקוין!</string>
+</resources>

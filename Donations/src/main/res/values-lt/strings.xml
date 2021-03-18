@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="donations__button_close">Uždaryti</string>
-	<string name="donations__description">Radai šią programą naudingą\? Palaikykite jos kūrima aukodami.</string>
+	<string name="donations__description">Radai šią programą naudingą\?\nPalaikykite jos kūrima aukodami.</string>
 	<string name="donations__google_android_market">„Play“ Parduotuvė</string>
 	<string name="donations__google_android_market_not_supported_title">Aukos programos viduje nepalaikomos.</string>
 	<string name="donations__google_android_market_not_supported">Aukos programos viduje nepalaikomos. Ar „Play“ Parduotuvė įdiegta teisingai\?</string>
-	<string name="donations__google_android_market_description">Google nuskaičiuoja 30% sumos.</string>
+	<string name="donations__google_android_market_description">Google nuskaičiuoja %d%% sumos.</string>
 	<string name="donations__google_android_market_donate_button">Paaukok!</string>
 	<string name="donations__google_android_market_text">Kiek\?</string>
 	<string name="donations__paypal">PayPal</string>

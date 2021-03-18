@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="donations__button_close">बंद करे</string>
-	<string name="donations__description">Application सहयातमंद रही\? दान द्वारा Development में योगदान दे ! </string>
+	<string name="donations__description">Application सहयातमंद रही\? दान द्वारा Development में योगदान दे !</string>
 	<string name="donations__google_android_market">Google Play Store</string>
 	<string name="donations__google_android_market_not_supported_title">In-App Donations काम नहीं कर रहे है</string>
 	<string name="donations__google_android_market_not_supported">In-App Donations काम नहीं कर रहे है। Google play सही से  install किया है\?</string>
-	<string name="donations__google_android_market_description">Google 30% चार्ज लेता है</string>
+	<string name="donations__google_android_market_description">Google %d%% चार्ज लेता है</string>
 	<string name="donations__google_android_market_donate_button">दान दे!</string>
 	<string name="donations__google_android_market_text">कितना देंगे\?</string>
 	<string name="donations__paypal">PayPal</string>

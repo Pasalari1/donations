@@ -5,7 +5,7 @@
 	<string name="donations__google_android_market">متجر جوجل بلاي</string>
 	<string name="donations__google_android_market_not_supported_title">التبرع من داخل البرنامج غير مدعوم.</string>
 	<string name="donations__google_android_market_not_supported">التبرع من داخل البرنامج غير مدعوم. هل متجر جوجل بلاي مثبت بشكل صحيح؟</string>
-	<string name="donations__google_android_market_description">تحصل جوجل على نسبة 30٪ كمصاريف للخدمة</string>
+	<string name="donations__google_android_market_description">تحصل جوجل على نسبة %d٪ كمصاريف للخدمة</string>
 	<string name="donations__google_android_market_donate_button">تبرع!</string>
 	<string name="donations__google_android_market_text">كم المبلغ؟</string>
 	<string name="donations__paypal">باي بال</string>

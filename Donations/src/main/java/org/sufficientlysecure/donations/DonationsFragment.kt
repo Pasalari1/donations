@@ -17,13 +17,10 @@
 
 package org.sufficientlysecure.donations
 
-import android.annotation.TargetApi
-import android.app.AlertDialog
 import android.content.*
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,8 +40,8 @@ class DonationsFragment : Fragment() {
 
     private var mDebug = false
 
-    // Pair<googlePrivateKey, Map<catalogItems, catalogValues>>
-    private var mGoogle: Pair<String, Map<String, String>>? = null
+    // Triple<googlePrivateKey, Map<catalogItems, catalogValues>, googleCutPercent>
+    private var mGoogle: Triple<String, Map<String, String>, Int>? = null
     // Triple<email, currencyCode, itemName>
     private var mPaypal: Triple<String, String, String>? = null
     // address
@@ -80,15 +77,19 @@ class DonationsFragment : Fragment() {
         mDebug = requireArguments().getBoolean(ARG_DEBUG)
         if (requireArguments().getBoolean(ARG_GOOGLE_ENABLED)) {
             val catalogValues = requireArguments().getStringArray(ARG_GOOGLE_CATALOG_VALUES)!!
-            mGoogle = Pair(requireArguments().getString(ARG_GOOGLE_PUBKEY)!!,
-                    requireArguments().getStringArray(ARG_GOOGLE_CATALOG)!!.withIndex()
-                            .associateBy ({it.value}, {catalogValues[it.index]}))
+            mGoogle = Triple(
+                    requireArguments().getString(ARG_GOOGLE_PUBKEY)!!,
+                    requireArguments().getStringArray(ARG_GOOGLE_CATALOG)!!.withIndex().associateBy ({it.value}, {catalogValues[it.index]}),
+                    requireArguments().getInt(ARG_GOOGLE_CUT_PERCENT)
+            )
         }
 
         if (requireArguments().getBoolean(ARG_PAYPAL_ENABLED))
-            mPaypal = Triple(requireArguments().getString(ARG_PAYPAL_USER)!!,
+            mPaypal = Triple(
+                    requireArguments().getString(ARG_PAYPAL_USER)!!,
                     requireArguments().getString(ARG_PAYPAL_CURRENCY_CODE)!!,
-                    requireArguments().getString(ARG_PAYPAL_ITEM_NAME)!!)
+                    requireArguments().getString(ARG_PAYPAL_ITEM_NAME)!!
+            )
 
         if (requireArguments().getBoolean(ARG_BITCOIN_ENABLED))
             mBitcoinAddress = requireArguments().getString(ARG_BITCOIN_ADDRESS)
@@ -98,19 +99,21 @@ class DonationsFragment : Fragment() {
         return inflater.inflate(R.layout.donations__fragment, container, false)
     }
 
-    @TargetApi(11)
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         var worked = false
 
         /* Google */
         mGoogle?.let {
             worked = true
             val googleViewStub = requireView().findViewById<ViewStub>(R.id.donations__google_stub)
-            googleViewStub.inflate()
+            val googleView = googleViewStub.inflate()
+
+            // display cut percentage
+            googleView.findViewById<TextView>(R.id.donations__google_android_market_description).text = getString(R.string.donations__google_android_market_description, it.third)
 
             // choose donation amount
-            mGoogleSpinner = requireView().findViewById(
+            mGoogleSpinner = googleView.findViewById(
                     R.id.donations__google_android_market_spinner)
             val adapter = if (mDebug) {
                 ArrayAdapter(requireActivity(),
@@ -122,7 +125,7 @@ class DonationsFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             mGoogleSpinner!!.adapter = adapter
 
-            val btGoogle = requireView().findViewById<Button>(
+            val btGoogle = googleView.findViewById<Button>(
                     R.id.donations__google_android_market_donate_button)
             btGoogle.setOnClickListener { _ ->
                 try {
@@ -142,9 +145,9 @@ class DonationsFragment : Fragment() {
         mPaypal?.let {
             worked = true
             val paypalViewStub = requireView().findViewById<ViewStub>(R.id.donations__paypal_stub)
-            paypalViewStub.inflate()
+            val paypalView = paypalViewStub.inflate()
 
-            val btPayPal = requireView().findViewById<Button>(R.id.donations__paypal_donate_button)
+            val btPayPal = paypalView.findViewById<Button>(R.id.donations__paypal_donate_button)
             btPayPal.setOnClickListener { _ -> donatePayPalOnClick(it) }
         }
 
@@ -153,15 +156,15 @@ class DonationsFragment : Fragment() {
             worked = true
             // inflate bitcoin view into stub
             val bitcoinViewStub = requireView().findViewById<View>(R.id.donations__bitcoin_stub) as ViewStub
-            bitcoinViewStub.inflate()
+            val bitcoinView = bitcoinViewStub.inflate()
 
-            val btBitcoin = requireView().findViewById<Button>(R.id.donations__bitcoin_button)
+            val btBitcoin = bitcoinView.findViewById<Button>(R.id.donations__bitcoin_button)
             btBitcoin.setOnClickListener { _ -> donateBitcoinOnClick(it) }
             btBitcoin.setOnLongClickListener {
                 val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText(mBitcoinAddress, mBitcoinAddress)
                 clipboard.setPrimaryClip(clip)
-                Toast.makeText(activity, R.string.donations__bitcoin_toast_copy, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), R.string.donations__bitcoin_toast_copy, Toast.LENGTH_SHORT).show()
                 true
             }
         }
@@ -175,7 +178,7 @@ class DonationsFragment : Fragment() {
      * Open dialog
      */
     internal fun openDialog(icon: Int, title: Int, message: String) {
-        val dialogBuilder = MaterialAlertDialogBuilder(activity)
+        val dialogBuilder = MaterialAlertDialogBuilder(requireActivity())
 
         dialogBuilder.setIcon(icon)
         dialogBuilder.setTitle(title)
@@ -207,7 +210,7 @@ class DonationsFragment : Fragment() {
 
     /**
      * Donate button with PayPal by opening browser with defined URL For possible parameters see:
-     * https://developer.paypal.com/webapps/developer/docs/classic/paypal-payments-standard/integration-guide/Appx_websitestandard_htmlvariables/
+     * https://developer.paypal.com/docs/paypal-payments-standard/integration-guide/Appx-websitestandard-htmlvariables/
      */
     private fun donatePayPalOnClick(data: Triple<String, String, String>) {
         val uriBuilder = Uri.Builder()
@@ -225,15 +228,11 @@ class DonationsFragment : Fragment() {
         if (mDebug)
             Log.d(TAG, "Opening the browser with the url: $payPalUri")
 
-        val viewIntent = Intent(Intent.ACTION_VIEW, payPalUri)
-        // force intent chooser, do not automatically use PayPal app
-        // https://github.com/PrivacyApps/donations/issues/28
-        val title = resources.getString(R.string.donations__paypal)
-        val chooser = Intent.createChooser(viewIntent, title)
+        val viewIntent = Intent(Intent.ACTION_VIEW).setData(payPalUri)
 
-        if (viewIntent.resolveActivity(requireActivity().packageManager) != null) {
-            startActivity(chooser)
-        } else {
+        try {
+            startActivity(viewIntent)
+        } catch (e: ActivityNotFoundException) {
             openDialog(R.drawable.alert, R.string.donations__alert_dialog_title,
                     getString(R.string.donations__alert_dialog_no_browser))
         }
@@ -265,6 +264,7 @@ class DonationsFragment : Fragment() {
         const val ARG_GOOGLE_PUBKEY = "googlePubkey"
         const val ARG_GOOGLE_CATALOG = "googleCatalog"
         const val ARG_GOOGLE_CATALOG_VALUES = "googleCatalogValues"
+        const val ARG_GOOGLE_CUT_PERCENT = "googleCutPercent"
 
         const val ARG_PAYPAL_ENABLED = "paypalEnabled"
         const val ARG_PAYPAL_USER = "paypalUser"
@@ -296,9 +296,8 @@ class DonationsFragment : Fragment() {
          * @param bitcoinAddress      The address to receive bitcoin
          * @return DonationsFragment
          */
-        @Suppress("MemberVisibilityCanBePrivate") // entrypoint
         fun newInstance(debug: Boolean, googleEnabled: Boolean, googlePubkey: String?,
-                        googleCatalog: Array<String>?, googleCatalogValues: Array<String>?,
+                        googleCatalog: Array<String>?, googleCatalogValues: Array<String>?, googleCutPercent: Int,
                         paypalEnabled: Boolean, paypalUser: String?, paypalCurrencyCode: String?,
                         paypalItemName: String?, bitcoinEnabled: Boolean,
                         bitcoinAddress: String?): DonationsFragment {
@@ -312,6 +311,7 @@ class DonationsFragment : Fragment() {
             args.putString(ARG_GOOGLE_PUBKEY, googlePubkey)
             args.putStringArray(ARG_GOOGLE_CATALOG, googleCatalog)
             args.putStringArray(ARG_GOOGLE_CATALOG_VALUES, googleCatalogValues)
+            args.putInt(ARG_GOOGLE_CUT_PERCENT, googleCutPercent)
 
             args.putBoolean(ARG_PAYPAL_ENABLED, paypalEnabled)
             args.putString(ARG_PAYPAL_USER, paypalUser)
@@ -325,31 +325,9 @@ class DonationsFragment : Fragment() {
             return donationsFragment
         }
 
-        /**
-         * Instantiate DonationsFragment.
-         *
-         * @param debug               You can use BuildConfig.DEBUG to propagate the debug flag from your app to the Donations library
-         * @param googleEnabled       Enabled Google Play donations
-         * @param googlePubkey        Your Google Play public key
-         * @param googleCatalog       Possible item names that can be purchased from Google Play
-         * @param googleCatalogValues Values for the names
-         * @param paypalEnabled       Enable PayPal donations
-         * @param paypalUser          Your PayPal email address
-         * @param paypalCurrencyCode  Currency code like EUR. See here for other codes:
-         * https://developer.paypal.com/webapps/developer/docs/classic/api/currency_codes/#id09A6G0U0GYK
-         * @param paypalItemName      Display item name on PayPal, like "Donation for NTPSync"
-         * @param flattrEnabled       Obselete, as no effect
-         * @param flattrProjectUrl    Obselete, has no effect
-         * @param flattrUrl           Obselete, has no effect
-         * @param bitcoinEnabled      Enable bitcoin donations
-         * @param bitcoinAddress      The address to receive bitcoin
-         * @return DonationsFragment
-         */
-
         @Deprecated("flattr no longer supported", ReplaceWith("newInstance(debug, googleEnabled," +
-                "googlePubkey, googleCatalog, googleCatalogValues, paypalEnabled, paypalUser, " +
+                "googlePubkey, googleCatalog, googleCatalogValues, 30, paypalEnabled, paypalUser, " +
                 "paypalCurrencyCode, paypalItemName, bitcoinEnabled, bitcoinAddress)"))
-
         fun newInstance(debug: Boolean, googleEnabled: Boolean, googlePubkey: String?,
                         googleCatalog: Array<String>?, googleCatalogValues: Array<String>?,
                         paypalEnabled: Boolean, paypalUser: String?, paypalCurrencyCode: String?,
@@ -359,9 +337,23 @@ class DonationsFragment : Fragment() {
 
             if (flattrEnabled || flattrProjectUrl != null || flattrUrl != null)
                 Log.e(TAG, "You can't use flattr, their API is gone!")
-            
+
             return newInstance(debug, googleEnabled, googlePubkey, googleCatalog,
-                    googleCatalogValues, paypalEnabled, paypalUser, paypalCurrencyCode,
+                    googleCatalogValues, 30, paypalEnabled, paypalUser, paypalCurrencyCode,
+                    paypalItemName, bitcoinEnabled, bitcoinAddress)
+        }
+
+        @Deprecated("Google cut percentage should be provided", ReplaceWith("newInstance(debug, googleEnabled," +
+                "googlePubkey, googleCatalog, googleCatalogValues, 30, paypalEnabled, paypalUser, " +
+                "paypalCurrencyCode, paypalItemName, bitcoinEnabled, bitcoinAddress)"))
+        fun newInstance(debug: Boolean, googleEnabled: Boolean, googlePubkey: String?,
+                        googleCatalog: Array<String>?, googleCatalogValues: Array<String>?,
+                        paypalEnabled: Boolean, paypalUser: String?, paypalCurrencyCode: String?,
+                        paypalItemName: String?, bitcoinEnabled: Boolean,
+                        bitcoinAddress: String?): DonationsFragment {
+
+            return newInstance(debug, googleEnabled, googlePubkey, googleCatalog,
+                    googleCatalogValues, 30, paypalEnabled, paypalUser, paypalCurrencyCode,
                     paypalItemName, bitcoinEnabled, bitcoinAddress)
         }
     }

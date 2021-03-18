@@ -5,7 +5,7 @@
 	<string name="donations__google_android_market">Google Play Áruház</string>
 	<string name="donations__google_android_market_not_supported_title">Az alkalmazáson belüli adományozás nem támogatott.</string>
 	<string name="donations__google_android_market_not_supported">Az alkalmazáson belüli adományozás nem támogatott. A Google Android Market megfelelően van telepítve\?</string>
-	<string name="donations__google_android_market_description">A Google 30% díjat számít fel</string>
+	<string name="donations__google_android_market_description">A Google %d%% díjat számít fel</string>
 	<string name="donations__google_android_market_donate_button">Adományozok!</string>
 	<string name="donations__google_android_market_text">Mennyi\?</string>
 	<string name="donations__paypal">PayPal</string>
@@ -18,4 +18,5 @@
 	<string name="donations__bitcoin_description">Küldjön bármilyen mennyiségű bitcoint a fejlesztőnek. Tartsa nyomva a gombot a cím másolásához.</string>
 	<string name="donations__bitcoin_send_bitcoin_button">Küldje el a bitcoint!</string>
 	<string name="donations__bitcoin_toast_copy">A Bitcoin címet másolták a vágólapra!</string>
+	<string name="donate_unavailable">Sajnos jelenleg nem adományozhat automatikusan. Kérjük, vegye fel a kapcsolatot a fejlesztővel, hogy megkérdezze, hogyan lehet adományozni.</string>
 </resources>

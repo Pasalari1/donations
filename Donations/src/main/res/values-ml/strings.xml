@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="donations__button_close">അടയ്‌ക്കുക</string>
+	<string name="donations__google_android_market_donate_button">സംഭാവനചെയ്യുക!</string>
+	<string name="donations__google_android_market_text">എത്രമാത്രം\?</string>
+	<string name="donations__paypal_description">ബട്ടൺ ക്ലിക്കുചെയ്തതിനുശേഷം നിങ്ങൾക്ക് എത്ര സംഭാവന നൽകണമെന്ന് തിരഞ്ഞെടുക്കാം!</string>
+	<string name="donations__thanks_dialog_title">നന്ദി!</string>
+	<string name="donations__thanks_dialog">സംഭാവന ചെയ്തതിന് നന്ദി!\nഞാൻ ഇത് അഭിനന്ദിക്കുന്നു!</string>
+	<string name="donations__alert_dialog_title">പിശക് സംഭവിച്ചു</string>
+	<string name="donations__alert_dialog_no_browser">ഒരു വെബ്സൈറ്റ് തുറക്കുന്നതിന് ബ്രസറൊന്നും കണ്ടെത്തിയില്ല!</string>
+	<string name="donate_unavailable">നിർഭാഗ്യവശാൽ, നിങ്ങൾക്ക് ഇപ്പോൾ സ്വപ്രേരിതമായി സംഭാവന ചെയ്യാൻ കഴിയില്ല. എങ്ങനെ സംഭാവന ചെയ്യണമെന്ന് ചോദിക്കാൻ ഡവലപ്പറുമായി ബന്ധപ്പെടുക.</string>
+</resources>

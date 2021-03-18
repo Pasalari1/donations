@@ -5,7 +5,7 @@
 	<string name="donations__google_android_market">Google Play Store</string>
 	<string name="donations__google_android_market_not_supported_title">Las donaciones In-App no están soportadas</string>
 	<string name="donations__google_android_market_not_supported">Las donaciones In-App no están soportadas. Google Play esta instalado correctamente\?</string>
-	<string name="donations__google_android_market_description">Google añade una comisión del 30%</string>
+	<string name="donations__google_android_market_description">Google añade una comisión del %d%%</string>
 	<string name="donations__google_android_market_donate_button">¡Donar!</string>
 	<string name="donations__google_android_market_text">¿Cuánto\?</string>
 	<string name="donations__paypal">PayPal</string>

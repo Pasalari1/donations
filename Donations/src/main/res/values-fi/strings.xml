@@ -2,10 +2,10 @@
 <resources>
 	<string name="donations__button_close">Sulje</string>
 	<string name="donations__description">Löydätkö tämän sovelluksen hyödyllisenä\?\nTue sen kehitystä lähettämällä lahjoituksen kehittäjälle!</string>
-	<string name="donations__google_android_market">Googlen Android Market</string>
+	<string name="donations__google_android_market">Googlen Play Store</string>
 	<string name="donations__google_android_market_not_supported_title">Sovelluksen sisäiset lahjoitukset eivät ole tuettu.</string>
 	<string name="donations__google_android_market_not_supported">Sovelluksen sisäiset lahjoitukset eivät ole tuettu. Löytyykö laitteesta Android Market\?</string>
-	<string name="donations__google_android_market_description">Google veloittaa 30%: n maksun</string>
+	<string name="donations__google_android_market_description">Google veloittaa %d%%: n maksun</string>
 	<string name="donations__google_android_market_donate_button">Lahjoita!</string>
 	<string name="donations__google_android_market_text">Kuinka paljon\?</string>
 	<string name="donations__paypal">PayPal</string>

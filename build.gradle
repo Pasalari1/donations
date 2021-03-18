@@ -1,14 +1,14 @@
 buildscript {
-    ext.kotlin_version = '1.3.72'
+    ext.kotlin_version = '1.4.31'
     repositories {
         jcenter()
         google()
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0'
+        classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.github.penn5:poeditor-android:0.0.8"
+        classpath "com.github.penn5:poeditor-android:0.1.1"
     }
 }
 

@@ -5,7 +5,7 @@
 	<string name="donations__google_android_market">Google Play Store</string>
 	<string name="donations__google_android_market_not_supported_title">Uygulama içi bağış desteklenmiyor.</string>
 	<string name="donations__google_android_market_not_supported">Uygulama içi bağış desteklenmiyor. Google Play Store doğru şekilde kurulu mu\?</string>
-	<string name="donations__google_android_market_description">Google %30 komisyon alır.</string>
+	<string name="donations__google_android_market_description">Google %%%d komisyon alır.</string>
 	<string name="donations__google_android_market_donate_button">Bağış yap!</string>
 	<string name="donations__google_android_market_text">Ne kadar\?</string>
 	<string name="donations__paypal">PayPal</string>

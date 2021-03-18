@@ -5,7 +5,7 @@
 	<string name="donations__google_android_market">Google Play Store</string>
 	<string name="donations__google_android_market_not_supported_title">Les donacions integrades a l\&apos;aplicació no són compatibles.</string>
 	<string name="donations__google_android_market_not_supported">Les donacions integrades a l\&apos;aplicació no són compatibles. Google Play Store està instal·lat correctament\?</string>
-	<string name="donations__google_android_market_description">Google cobra una quota del 30%</string>
+	<string name="donations__google_android_market_description">Google cobra una quota del %d%%</string>
 	<string name="donations__google_android_market_donate_button">Donar!</string>
 	<string name="donations__google_android_market_text">Quant\?</string>
 	<string name="donations__paypal">PayPal</string>

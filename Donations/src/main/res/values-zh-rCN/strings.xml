@@ -5,7 +5,7 @@
 	<string name="donations__google_android_market">通过 Google Play 商店捐赠</string>
 	<string name="donations__google_android_market_not_supported_title">您的设备不支持应用内捐赠。</string>
 	<string name="donations__google_android_market_not_supported">您的设备不支持应用内捐赠。请您检查 Google Play 商店是否正确安装。</string>
-	<string name="donations__google_android_market_description">Google 会收取 30％ 的费用</string>
+	<string name="donations__google_android_market_description">Google 会收取 %d%％ 的费用</string>
 	<string name="donations__google_android_market_donate_button">捐赠！</string>
 	<string name="donations__google_android_market_text">捐赠多少？</string>
 	<string name="donations__paypal">PayPal</string>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="donations__button_close">閉じる</string>
-	<string name="donations__description">このアプリケーションは便利ですか\?\\\n開発者に寄付を送って開発をサポートしてください!</string>
+	<string name="donations__description">このアプリケーションは便利ですか\?\n開発者に寄付を送って開発をサポートしてください!</string>
 	<string name="donations__google_android_market">Google Playストア</string>
 	<string name="donations__google_android_market_not_supported_title">アプリ内寄付は非対応です</string>
 	<string name="donations__google_android_market_not_supported">アプリ内寄付は非対応です。Google Playストアはインストールされていますか\?</string>
-	<string name="donations__google_android_market_description">Google は 30% の手数料がかかります</string>
+	<string name="donations__google_android_market_description">Google は %d%% の手数料がかかります</string>
 	<string name="donations__google_android_market_donate_button">寄付する!</string>
 	<string name="donations__google_android_market_text">いくら\?</string>
 	<string name="donations__paypal">PayPal</string>

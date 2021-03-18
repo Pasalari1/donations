@@ -5,7 +5,7 @@
 	<string name="donations__google_android_market">Google Play Butik</string>
 	<string name="donations__google_android_market_not_supported_title">In-App-donationer stödjs inte.</string>
 	<string name="donations__google_android_market_not_supported">In-App-donationer stödjs inte. Är Google Play Butik installerad korrekt\?</string>
-	<string name="donations__google_android_market_description">Google tar ut en avgift på 30%</string>
+	<string name="donations__google_android_market_description">Google tar ut en avgift på %d%%</string>
 	<string name="donations__google_android_market_donate_button">Donera!</string>
 	<string name="donations__google_android_market_text">Hur mycket\?</string>
 	<string name="donations__paypal">PayPal</string>

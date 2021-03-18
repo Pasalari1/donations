@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="donations__button_close">Schließen</string>
-	<string name="donations__description">Findest Du diese Anwendung nützlich\?\\\nDann unterstütze die Entwicklung durch eine Spende!</string>
+	<string name="donations__description">Findest Du diese Anwendung nützlich\?\nDann unterstütze die Entwicklung durch eine Spende!</string>
 	<string name="donations__google_android_market">Google Play Store</string>
 	<string name="donations__google_android_market_not_supported_title">In-App-Spenden werden nicht unterstützt.</string>
 	<string name="donations__google_android_market_not_supported">In-App-Spenden werden nicht unterstützt. Ist »Google Play Store« korrekt installiert\?</string>
-	<string name="donations__google_android_market_description">Google berechnet eine Gebühr von 30%</string>
+	<string name="donations__google_android_market_description">Google berechnet eine Gebühr von %d%%</string>
 	<string name="donations__google_android_market_donate_button">Spende!</string>
 	<string name="donations__google_android_market_text">Wie viel\?</string>
 	<string name="donations__paypal">PayPal</string>

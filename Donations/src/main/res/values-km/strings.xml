@@ -5,7 +5,7 @@
 	<string name="donations__google_android_market">Google​ Play Store</string>
 	<string name="donations__google_android_market_not_supported_title">ការបរិច្ចាគក្នុងកម្មវិធីមិនត្រូវបានទទួលស្គាល់នោះទេ</string>
 	<string name="donations__google_android_market_not_supported">ការបរិច្ចាគក្នុងកម្មវិធីមិនត្រូវបានទទួលស្គាល់។ តើកម្មវិធី​Google Play Storeរបស់អ្នកត្រូវបានបញ្ចូលត្រឹមត្រូវដែរទេ\?\n</string>
-	<string name="donations__google_android_market_description">ការគិតថ្លៃរបស់Googleគឺ30%</string>
+	<string name="donations__google_android_market_description">ការគិតថ្លៃរបស់Googleគឺ%d%%</string>
 	<string name="donations__google_android_market_donate_button">បរិច្ចាគ!</string>
 	<string name="donations__google_android_market_text">ប៉ុន្មាន\?</string>
 	<string name="donations__paypal">PayPal</string>
