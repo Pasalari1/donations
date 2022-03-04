@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<string name="donations__button_close">Затвори</string>
-	<string name="donations__description">Смятате ли, че това приложение е полезно\?\nПодкрепете неговото развитие, като изпратите дарение на предприемача!</string>
+	<string name="donations__description">Смятате ли, че това приложение е полезно\?\nПодкрепете неговото развитие, като изпратите дарение на разработчика!</string>
 	<string name="donations__google_android_market">Google Play магазин</string>
 	<string name="donations__google_android_market_not_supported_title">Дарения чрез приложението не се поддържат.</string>
 	<string name="donations__google_android_market_not_supported">Дарения чрез приложението не се поддържат. Инсталиран ли е правилно магазина Google Play\?</string>

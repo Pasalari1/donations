@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="donations__button_close">Tutup</string>
+	<string name="donations__description">Adakah anda mendapati aplikasi ini berguna\?\nSokong pengembangannya dengan menghantar sumbangan kepada pembangun aplikasi!</string>
+	<string name="donations__google_android_market">Google Play Store</string>
+	<string name="donations__google_android_market_not_supported_title">Sumbangan dalam Aplikasi tidak disokong.</string>
+	<string name="donations__google_android_market_not_supported">Sumbangan Dalam Aplikasi tidak disokong. Adakah Google Play Store dipasang dengan betul\?</string>
+	<string name="donations__google_android_market_description">Google mengenakan bayaran sebanyak %d%%</string>
+	<string name="donations__google_android_market_donate_button">Sumbang!</string>
+	<string name="donations__google_android_market_text">Berapa banyak\?</string>
+	<string name="donations__paypal">PayPal</string>
+	<string name="donations__paypal_description">Anda boleh memilih berapa banyak yang anda mahu sumbangkan setelah menekan butang!</string>
+	<string name="donations__thanks_dialog_title">Terima kasih!</string>
+	<string name="donations__thanks_dialog">Terima kasih kerana menyumbang!\nSaya sangat menghargai sumbangan ini!</string>
+	<string name="donations__alert_dialog_title">Ralat berlaku</string>
+	<string name="donations__alert_dialog_no_browser">Tiada pelayar laman web dijumpai untuk membuka laman web</string>
+	<string name="donations__bitcoin">Bitcoin</string>
+	<string name="donations__bitcoin_description">Hantarkan sejumlah bitcoin kepada pembangun aplikasi. Tekan dan tahan butang untuk menyalin alamat.</string>
+	<string name="donations__bitcoin_send_bitcoin_button">Hantar bitcoin!</string>
+	<string name="donations__bitcoin_toast_copy">Alamat Bitcoin telah disalin ke dalam papa keratan!</string>
+	<string name="donate_unavailable">Malang sekali, anda tidak dapat menyumbang secara automatik sekarang. Sila hubungi pembangun aplikasi untuk bertanya cara untuk menyumbang.</string>
+</resources>

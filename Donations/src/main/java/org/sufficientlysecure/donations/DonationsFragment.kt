@@ -64,8 +64,12 @@ class DonationsFragment : Fragment() {
 
             if (isAdded) {
                 // show thanks openDialog
-                openDialog(R.drawable.briefcase_check, R.string.donations__thanks_dialog_title,
-                        getString(R.string.donations__thanks_dialog))
+                    requireView().post {
+                        openDialog(
+                            R.drawable.briefcase_check, R.string.donations__thanks_dialog_title,
+                            getString(R.string.donations__thanks_dialog)
+                        )
+                    }
             } else
                 Log.e(TAG, "Not attached to activity")
         }
@@ -257,7 +261,6 @@ class DonationsFragment : Fragment() {
     }
 
     companion object {
-
         const val ARG_DEBUG = "debug"
 
         const val ARG_GOOGLE_ENABLED = "googleEnabled"

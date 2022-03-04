@@ -14,33 +14,24 @@ class GoogleIABHelper(private val context: Activity, private val listener: Googl
 
     private fun ensureConnected(callback: () -> Unit) {
         if (!connected)
-            connect(callback)
+            connect({
+                if (!connected) {
+                    listener.donationFailed()
+                } else {
+                    callback()
+                }
+            })
         else
             callback()
     }
 
-    /**
-     * This method gets notifications for purchases updates. Both purchases initiated by
-     * your app and the ones initiated outside of your app will be reported here.
-     *
-     *
-     * **Warning!** All purchases reported here must either be consumed or acknowledged. Failure
-     * to either consume (via [BillingClient.consumeAsync]) or acknowledge
-     *   (via [ ][BillingClient.acknowledgePurchase]) a purchase will result
-     *   in that purchase being refunded.
-     * Please refer to
-     * https://developer.android.com/google/play/billing/billing_library_overview#acknowledge for more
-     * details.
-     *
-     * @param billingResult BillingResult of the update.
-     * @param purchases List of updated purchases if present.
-     */
     override fun onPurchasesUpdated(billingResult: BillingResult, purchases: List<Purchase>?) {
         if (billingResult.responseCode != BillingClient.BillingResponseCode.OK || purchases == null)
             listener.donationFailed()
         else {
+            Log.d(tag, purchases.toString())
             for (purchase in purchases) {
-                Log.d(tag, "Purchased ${purchase.sku} successfully. State is ${purchase.purchaseState}")
+                Log.d(tag, "Purchased ${purchase.skus} successfully. State is ${purchase.purchaseState}")
                 if (purchase.purchaseState != Purchase.PurchaseState.PURCHASED)
                     continue
                 ensureConnected {
@@ -55,7 +46,9 @@ class GoogleIABHelper(private val context: Activity, private val listener: Googl
                             listener.donationFailed()
                         } else {
                             Log.d(tag, "Consumption successful")
-                            listener.donationSuccess(purchase.sku)
+                            for (sku in purchase.skus) {
+                                listener.donationSuccess(sku)
+                            }
                         }
                     }
                 }
@@ -64,46 +57,64 @@ class GoogleIABHelper(private val context: Activity, private val listener: Googl
     }
 
     private fun connect(callback: () -> Unit = {}, retry: Int = 20) {
-        billingClient = BillingClient.newBuilder(context).setListener(this).enablePendingPurchases().build()
-        billingClient.startConnection(object : BillingClientStateListener {
-            /**
-             * Called to notify that connection to billing service was lost
-             *
-             *
-             * Note: This does not remove billing service connection itself - this binding to the service
-             * will remain active, and you will receive a call to [.onBillingSetupFinished] when billing
-             * service is next running and setup is complete.
-             */
-            override fun onBillingServiceDisconnected() {
-                Log.e(tag, "Connection lost!")
-                connected = false
-                // We lost connection but don't reconnect, because we might not be active
-            }
-
-            /**
-             * Called to notify that setup is complete.
-             *
-             * @param billingResult The [BillingResult] which returns the status of the setup process.
-             */
-            override fun onBillingSetupFinished(billingResult: BillingResult) {
-                connected = if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    Log.d(tag, "Connected")
-                    callback()
-                    true
-                } else {
-                    Log.e(tag, "Connection was not successful (${billingResult.responseCode}:${billingResult.debugMessage})")
-                    if (retry > 0)
-                        handler.postDelayed({connect(callback, retry - 1)}, 10000L/retry)
-                    else
-                        callback()
-                    false
+        try {
+            billingClient =
+                BillingClient.newBuilder(context).setListener(this).enablePendingPurchases().build()
+            billingClient.startConnection(object : BillingClientStateListener {
+                /**
+                 * Called to notify that connection to billing service was lost
+                 *
+                 *
+                 * Note: This does not remove billing service connection itself - this binding to the service
+                 * will remain active, and you will receive a call to [.onBillingSetupFinished] when billing
+                 * service is next running and setup is complete.
+                 */
+                override fun onBillingServiceDisconnected() {
+                    Log.e(tag, "Connection lost!")
+                    connected = false
+                    // We lost connection but don't reconnect, because we might not be active
                 }
-            }
-        })
+
+                /**
+                 * Called to notify that setup is complete.
+                 *
+                 * @param billingResult The [BillingResult] which returns the status of the setup process.
+                 */
+                override fun onBillingSetupFinished(billingResult: BillingResult) {
+                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                        Log.d(tag, "Connected")
+                        connected = true
+                        callback()
+                    } else {
+                        Log.e(
+                            tag,
+                            "Connection was not successful (${billingResult.responseCode}:${billingResult.debugMessage})"
+                        )
+                        connected = false
+                        if (retry > 0)
+                            handler.postDelayed(
+                                { connect(callback, retry - 1) },
+                                10000L / retry
+                            )
+                        else
+                            callback()
+                    }
+                }
+            })
+        } catch (e: IllegalStateException) {
+            connected = false
+            if (retry > 0)
+                handler.postDelayed(
+                    { connect(callback, retry - 1) },
+                    10000L / retry
+                )
+            else
+                callback()
+        }
     }
 
     fun makePayment(productId: String) {
-        ensureConnected {makePaymentInternal(productId)}
+        ensureConnected { makePaymentInternal(productId) }
     }
 
     private fun makePaymentInternal(productId: String) {

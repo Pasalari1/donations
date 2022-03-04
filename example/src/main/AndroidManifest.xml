@@ -5,14 +5,14 @@
 
     <application
         android:icon="@drawable/ic_launcher"
-        android:allowBackup="false"
         android:label="Donations Example"
         tools:ignore="GoogleAppIndexingWarning"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light">
         <activity
             android:name=".DonationsActivity"
-            android:label="Donations">
+            android:label="Donations"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
